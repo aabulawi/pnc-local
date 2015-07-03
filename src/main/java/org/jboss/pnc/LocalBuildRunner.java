@@ -18,8 +18,8 @@ public class LocalBuildRunner {
 
         int result = 0;
         Environment env = Environment.Builder.defaultEnvironment().build();
-        BuildConfiguration buildConfiguration = BuildConfiguration.Builder.newBuilder().id(0).scmRepoURL("git@github.com:release-engineering/pom-manipulation-ext.git")
-                .buildScript("mvn install").name("MYBUILDCONFIG").environment(env).scmRevision("22855c9404319a30195b8ba7e637ddfb3f5dcaaf").build();
+        BuildConfiguration buildConfiguration = BuildConfiguration.Builder.newBuilder().id(0).scmRepoURL("https://github.com/project-ncl/pnc")
+                .buildScript("mvn install").name("MYBUILDCONFIG").environment(env).scmRevision("80f8fcf4e334daeef15667ccf1d4517f1050545b").build();
         User user = User.Builder.newBuilder().id(1).build();
 
 

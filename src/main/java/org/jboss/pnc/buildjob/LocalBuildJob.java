@@ -1,5 +1,6 @@
 package org.jboss.pnc.buildjob;
 
+import org.apache.maven.scm.command.checkout.CheckOutScmResult;
 import org.jboss.pnc.source_manager.SCMRepositoryType;
 import org.jboss.pnc.source_manager.ScmRetriever;
 import org.jboss.pnc.spi.builddriver.BuildDriverStatus;
@@ -28,63 +29,70 @@ public class LocalBuildJob {
 
     public void start(Consumer<BuildDriverStatus> onMonitorComplete,
                       Consumer<Exception> onMonitorError) {
-
+        BuildDriverStatus status = BuildDriverStatus.SUCCESS;
         ScmRetriever scmRetriever = new ScmRetriever(SCMRepositoryType.GIT);
+
         try {
-            scmRetriever.cloneRepository(scmUrl, revision, outputDir);
+            CheckOutScmResult result = scmRetriever.cloneRepository(scmUrl, revision, outputDir);
+            if (!result.isSuccess()){
+                status = BuildDriverStatus.FAILED;
+            }
         } catch (Exception e) {
-            onMonitorError.accept(e);
+            status = BuildDriverStatus.FAILED;
         }
 
-        String pathToBuildScript = String.format("%s/%s/%s", System.getProperty("user.dir"), outputDir, buildScriptName);
-        File buildScriptFile = new File(pathToBuildScript);
-        createBuildScript(buildScriptFile, buildScriptContents);
+        if (status.equals(BuildDriverStatus.SUCCESS)) {
+            String pathToBuildScript = String.format("%s/%s/%s", System.getProperty("user.dir"), outputDir, buildScriptName);
+            File buildScriptFile = new File(pathToBuildScript);
+            createBuildScript(buildScriptFile, buildScriptContents);
 
-        String[] buildcommands = {buildScriptFile.getAbsolutePath()};
-        ProcessBuilder buildProcessBuilder = new ProcessBuilder(buildcommands);
-        buildProcessBuilder.directory(buildScriptFile.getParentFile());
-        try {
-            Process process = buildProcessBuilder.start();
-            boolean running = true;
+            String[] buildcommands = {buildScriptFile.getAbsolutePath()};
+            ProcessBuilder buildProcessBuilder = new ProcessBuilder(buildcommands);
+            buildProcessBuilder.directory(buildScriptFile.getParentFile());
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
-            writer.newLine();
-            writer.flush();
-            Thread b = new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        String line;
+            Process process;
+            try {
+                process = buildProcessBuilder.start();
+                boolean running = true;
 
-                        while ((line = reader.readLine()) != null) {
-                            System.out.println(line);
-                            buildLog += line + "\n";
+                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+                writer.newLine();
+                writer.flush();
+                Thread b = new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            String line;
+
+                            while ((line = reader.readLine()) != null) {
+                                System.out.println(line);
+                                buildLog += line + "\n";
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                    } catch (IOException e) {
-                        onMonitorError.accept(e);
+                    }
+                });
+                b.start();
+                b.join();
+
+                while (running) {
+                    try {
+
+                        process.waitFor();
+                        running = false;
+                    } catch (InterruptedException e) {
+                        process.destroy();
+                        status = BuildDriverStatus.ABORTED;
                     }
                 }
-            });
-            b.start();
-            b.join();
-
-            while (running) {
-                try {
-
-                    process.waitFor();
-                    running = false;
-                } catch (InterruptedException e) {
-                    process.destroy();
-                    onMonitorComplete.accept(BuildDriverStatus.ABORTED);
-                }
-            }
-        } catch (IOException e) {
-            onMonitorError.accept(e);
-        } catch (InterruptedException e) {
-            onMonitorComplete.accept(BuildDriverStatus.ABORTED);
+            } catch (IOException e) {
+                status = BuildDriverStatus.FAILED;
+            } catch (InterruptedException e) {
+                status = BuildDriverStatus.ABORTED;            }
         }
 
-        onMonitorComplete.accept(BuildDriverStatus.SUCCESS);
+        onMonitorComplete.accept(status);
     }
 
     private void createBuildScript(File buildScriptFile, String buildScript){
