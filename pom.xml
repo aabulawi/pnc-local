@@ -6,7 +6,7 @@
 
     <groupId>org.jboss.pnc</groupId>
     <artifactId>local-build</artifactId>
-    <version>0.5-SNAPSHOT</version>
+    <version>0.6-SNAPSHOT</version>
     <build>
         <plugins>
             <plugin>
@@ -18,8 +18,38 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
+
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <archive>
+                                <manifest>
+                                    <mainClass>org.jboss.pnc.LocalBuildRunner</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </plugin>
+
         </plugins>
+
+
+
     </build>
+
+
+
     <dependencies>
 
         <dependency>
@@ -30,13 +60,24 @@
         <dependency>
             <groupId>org.jboss.pnc</groupId>
             <artifactId>spi</artifactId>
-            <version>0.5-SNAPSHOT</version>
+            <version>0.6-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.pnc</groupId>
             <artifactId>build-coordinator</artifactId>
-            <version>0.5-SNAPSHOT</version>
+            <version>0.6-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.scm</groupId>
+            <artifactId>maven-scm-api</artifactId>
+            <version>1.9.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.scm</groupId>
+            <artifactId>maven-scm-provider-jgit</artifactId>
+            <version>1.9.4</version>
             <scope>compile</scope>
         </dependency>
 
