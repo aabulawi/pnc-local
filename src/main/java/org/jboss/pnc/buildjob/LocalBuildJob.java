@@ -16,6 +16,7 @@ public class LocalBuildJob {
     private String scmUrl;
     private String outputDir;
     private final String buildScriptName = "pnc-build-script.sh";
+    private final String buildLogName = "mvn.log";
     private String buildScriptContents;
     private String revision;
     private String buildLog = "";
@@ -42,16 +43,23 @@ public class LocalBuildJob {
         }
 
         if (status.equals(BuildDriverStatus.SUCCESS)) {
-            String pathToBuildScript = String.format("%s/%s/%s", System.getProperty("user.dir"), outputDir, buildScriptName);
-            File buildScriptFile = new File(pathToBuildScript);
+            File buildScriptFile = new File(outputDir + File.separator + buildScriptName);
             createBuildScript(buildScriptFile, buildScriptContents);
 
             String[] buildcommands = {buildScriptFile.getAbsolutePath()};
             ProcessBuilder buildProcessBuilder = new ProcessBuilder(buildcommands);
             buildProcessBuilder.directory(buildScriptFile.getParentFile());
 
-            Process process;
+
+            File mvnlog = new File(outputDir+ File.separator + buildLogName);
             try {
+                mvnlog.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Process process;
+            try(BufferedWriter bw = new BufferedWriter(new FileWriter(mvnlog))) {
                 process = buildProcessBuilder.start();
                 boolean running = true;
 
@@ -66,8 +74,10 @@ public class LocalBuildJob {
 
                             while ((line = reader.readLine()) != null) {
                                 System.out.println(line);
+                                bw.write(line + "\n");
                                 buildLog += line + "\n";
                             }
+                            bw.flush();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -105,12 +115,12 @@ public class LocalBuildJob {
             }
         }
 
-        try(FileWriter fw = new FileWriter(buildScriptFile)) {
-            fw.write("#!/bin/bash\n");
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(buildScriptFile))) {
+            bw.write("#!/bin/bash\n");
             for (String line : buildScript.split("\n")){
-                fw.write(line+"\n");
+                bw.write(line + "\n");
             }
-            fw.flush();
+            bw.flush();
             buildScriptFile.setExecutable(true);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
