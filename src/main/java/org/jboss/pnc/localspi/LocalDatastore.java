@@ -9,8 +9,10 @@ import org.jboss.pnc.spi.datastore.DatastoreException;
 /**
  * Created by aabulawi on 24/06/15.
  */
-public class MockDatastore implements Datastore {
+public class LocalDatastore implements Datastore {
 
+    private int buildSetId = -1;
+    private int buildId = -1;
 
     @Override
     public BuildRecord storeCompletedBuild(BuildRecord buildRecord) throws DatastoreException {
@@ -29,11 +31,13 @@ public class MockDatastore implements Datastore {
 
     @Override
     public int getNextBuildRecordId() {
-        return 0;
+        buildId += 1;
+        return buildId;
     }
 
     @Override
     public int getNextBuildConfigSetRecordId() {
-        return 0;
+        buildSetId += 1;
+        return buildSetId;
     }
 }

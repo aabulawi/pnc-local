@@ -1,6 +1,7 @@
 package org.jboss.pnc.buildjob;
 
 import org.apache.maven.scm.command.checkout.CheckOutScmResult;
+import org.jboss.pnc.model.BuildConfiguration;
 import org.jboss.pnc.source_manager.SCMRepositoryType;
 import org.jboss.pnc.source_manager.ScmRetriever;
 import org.jboss.pnc.spi.builddriver.BuildDriverStatus;
@@ -21,11 +22,11 @@ public class LocalBuildJob {
     private String revision;
     private String buildLog = "";
 
-    public LocalBuildJob(String scmUrl, String revision, String outputDir, String installScript) {
-        this.scmUrl = scmUrl;
-        this.revision = revision;
-        this.outputDir = outputDir;
-        this.buildScriptContents = installScript;
+    public LocalBuildJob(BuildConfiguration configuration, String outputDir) {
+        this.scmUrl = configuration.getScmRepoURL();
+        this.revision = configuration.getScmRevision();
+        this.outputDir = outputDir + File.separator + configuration.getName();
+        this.buildScriptContents = configuration.getBuildScript();
     }
 
     public void start(Consumer<BuildDriverStatus> onMonitorComplete,

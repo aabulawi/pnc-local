@@ -24,7 +24,7 @@ public class LocalBuildDriver implements BuildDriver {
 
     @Override
     public RunningBuild startProjectBuild(BuildConfiguration buildConfiguration, final RunningEnvironment runningEnvironment) throws BuildDriverException {
-        LocalBuildJob localBuildJob = new LocalBuildJob(buildConfiguration.getScmRepoURL(), buildConfiguration.getScmRevision(), "builddir", buildConfiguration.getBuildScript());
+        LocalBuildJob localBuildJob = new LocalBuildJob(buildConfiguration, "workspace");
         return new LocalRunningBuild(runningEnvironment, localBuildJob);
     }
 
