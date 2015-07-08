@@ -3,6 +3,7 @@ package org.jboss.pnc.model;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jboss.pnc.exception.IncompleteConfigurationException;
 import org.junit.Test;
 
 import java.io.File;
@@ -40,6 +41,15 @@ public class JSONBuildConfigurationTest {
         File json = new File(configsDir+"invalidBuild.json");
         ObjectMapper mapper = new ObjectMapper();
         List<JSONBuildConfiguration> jsonConfig = mapper.readValue(json, new TypeReference<List<JSONBuildConfiguration>>() {});
+    }
+
+    @Test(expected = IncompleteConfigurationException.class)
+    public void createInvalidBuildConfiguration() throws Exception {
+        File json = new File(configsDir+"missingNameBuild.json");
+        ObjectMapper mapper = new ObjectMapper();
+        List<JSONBuildConfiguration> jsonConfig = mapper.readValue(json, new TypeReference<List<JSONBuildConfiguration>>() {});
+        for (JSONBuildConfiguration c : jsonConfig)
+            c.validate();
     }
 
 }
