@@ -23,11 +23,6 @@ public class LocalCompletedBuild implements CompletedBuild {
     }
 
     @Override
-    public BuildDriverStatus getCompleteStatus() {
-        return status;
-    }
-
-    @Override
     public BuildDriverResult getBuildResult() throws BuildDriverException {
         return new LocalBuildDriverResult(buildLog, status, runningEnvironment);
     }

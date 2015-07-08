@@ -36,7 +36,7 @@ public class LocalBuildDriver implements BuildDriver {
             }
 
             @Override
-            public BuildDriverStatus getBuildDriverStatus() throws BuildDriverException {
+            public BuildDriverStatus getBuildDriverStatus() {
                 return BuildDriverStatus.SUCCESS;
             }
 
