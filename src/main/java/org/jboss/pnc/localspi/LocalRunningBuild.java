@@ -30,7 +30,7 @@ public class LocalRunningBuild implements RunningBuild {
             onError.accept(e);
         };
 
-        localBuildJob.start(onBuildComplete, onBuildError);
+        localBuildJob.build(onBuildComplete, onBuildError);
 
 
     }
