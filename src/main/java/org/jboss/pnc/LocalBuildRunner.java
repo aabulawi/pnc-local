@@ -39,8 +39,7 @@ public class LocalBuildRunner {
                 buildConfigurationSet.addBuildConfiguration(buildConfig);
                 id++;
             }
-            User user = User.Builder.newBuilder().id(0).build();
-            buildCoordinator.build(buildConfigurationSet, user);
+            buildCoordinator.build(buildConfigurationSet, null);
         } catch (CoreException e) {
             e.printStackTrace();
         } catch (IncompleteConfigurationException e) {

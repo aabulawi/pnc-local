@@ -28,23 +28,4 @@ public class LocalBuildDriver implements BuildDriver {
         return new LocalRunningBuild(runningEnvironment, localBuildJob);
     }
 
-    private BuildDriverResult getBuildResultMock(final RunningEnvironment runningEnvironment) {
-        return new BuildDriverResult() {
-            @Override
-            public String getBuildLog() throws BuildDriverException {
-                return "Building in workspace ... Finished: SUCCESS";
-            }
-
-            @Override
-            public BuildDriverStatus getBuildDriverStatus() {
-                return BuildDriverStatus.SUCCESS;
-            }
-
-            @Override
-            public RunningEnvironment getRunningEnvironment() {
-                return runningEnvironment;
-            }
-        };
-    }
-
 }
