@@ -2,6 +2,7 @@ package org.jboss.pnc.LocalBuild;
 
 import org.apache.commons.io.FileUtils;
 import org.jboss.pnc.buildjob.ScriptExecutorImpl;
+import org.jboss.pnc.exception.LocalBuildProcessException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -24,7 +25,7 @@ public class ScriptExecutorImplTest {
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     @Test
-    public void runValidScript() throws IOException, InterruptedException {
+    public void runValidScript() throws Exception {
         File testlog = temporaryFolder.newFile();
         File testExecutable = new File(scriptsDir+"helloWorld.sh");
         testExecutable.setExecutable(true);
@@ -33,7 +34,7 @@ public class ScriptExecutorImplTest {
     }
 
     @Test
-    public void verifyCorrectLogsForSuccess() throws IOException, InterruptedException {
+    public void verifyCorrectLogsForSuccess() throws Exception {
         File testlog = temporaryFolder.newFile();
         File testExecutable = new File(scriptsDir+"helloWorld.sh");
         testExecutable.setExecutable(true);
@@ -43,7 +44,7 @@ public class ScriptExecutorImplTest {
     }
 
     @Test
-    public void verifyCorrectResultForSuccess() throws IOException, InterruptedException {
+    public void verifyCorrectResultForSuccess() throws Exception {
         File testlog = temporaryFolder.newFile();
         File testExecutable = new File(scriptsDir+"helloWorld.sh");
         testExecutable.setExecutable(true);
@@ -53,7 +54,7 @@ public class ScriptExecutorImplTest {
     }
 
     @Test
-    public void verifyCorrectLogFileForSuccess() throws IOException, InterruptedException {
+    public void verifyCorrectLogFileForSuccess() throws Exception {
         File testlog = temporaryFolder.newFile();
         File testExecutable = new File(scriptsDir+"helloWorld.sh");
         testExecutable.setExecutable(true);
@@ -63,7 +64,7 @@ public class ScriptExecutorImplTest {
     }
 
     @Test
-    public void runInvalidScript() throws IOException, InterruptedException {
+    public void runInvalidScript() throws Exception {
         File testlog = temporaryFolder.newFile();
         File testExecutable = new File(scriptsDir+"errorScript.sh");
         testExecutable.setExecutable(true);
@@ -72,7 +73,7 @@ public class ScriptExecutorImplTest {
     }
 
     @Test
-    public void verifyCorrectLogFileForInvalid() throws IOException, InterruptedException {
+    public void verifyCorrectLogFileForInvalid() throws Exception {
         File testlog = temporaryFolder.newFile();
         File testExecutable = new File(scriptsDir+"errorScript.sh");
         testExecutable.setExecutable(true);
@@ -82,7 +83,7 @@ public class ScriptExecutorImplTest {
     }
 
     @Test
-    public void verifyCorrectResultForInvalid() throws IOException, InterruptedException {
+    public void verifyCorrectResultForInvalid() throws Exception {
         File testlog = temporaryFolder.newFile();
         File testExecutable = new File(scriptsDir+"errorScript.sh");
         testExecutable.setExecutable(true);

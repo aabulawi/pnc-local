@@ -5,7 +5,19 @@ package org.jboss.pnc.exception;
  */
 public class IncompleteConfigurationException extends Exception {
 
-    public IncompleteConfigurationException(String message){
-        super(message);
+    public IncompleteConfigurationException () {
+
+    }
+
+    public IncompleteConfigurationException (String message) {
+        super (message);
+    }
+
+    public IncompleteConfigurationException (Throwable cause) {
+        super (cause);
+    }
+
+    public IncompleteConfigurationException (String message, Throwable cause) {
+        super(message, cause);
     }
 }

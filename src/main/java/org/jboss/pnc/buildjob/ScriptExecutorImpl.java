@@ -1,5 +1,7 @@
 package org.jboss.pnc.buildjob;
 
+import org.jboss.pnc.exception.LocalBuildProcessException;
+
 import java.io.*;
 
 /**
@@ -19,7 +21,7 @@ public class ScriptExecutorImpl implements ScriptExecutor {
     }
 
     @Override
-    public void executeScript() throws InterruptedException, IOException {
+    public void executeScript() throws LocalBuildProcessException {
         String[] buildcommands = {executableFile.getAbsolutePath()};
         ProcessBuilder processBuilder = new ProcessBuilder(buildcommands);
         processBuilder.directory(executableFile.getParentFile());
@@ -61,6 +63,10 @@ public class ScriptExecutorImpl implements ScriptExecutor {
                     process.destroy();
                 }
             }
+        } catch (InterruptedException e) {
+            throw new LocalBuildProcessException(e);
+        } catch (IOException e) {
+            throw new LocalBuildProcessException(e);
         }
     }
 

@@ -1,6 +1,11 @@
 package org.jboss.pnc.buildjob;
 
+import org.apache.maven.scm.ScmException;
+import org.jboss.pnc.exception.LocalBuildProcessException;
+import org.jboss.pnc.exception.OSNotSupportedException;
 import org.jboss.pnc.model.BuildConfiguration;
+import org.jboss.pnc.model.Environment;
+import org.jboss.pnc.model.OperationalSystem;
 import org.jboss.pnc.source_manager.SCMRepositoryType;
 import org.jboss.pnc.source_manager.ScmRetriever;
 import org.jboss.pnc.spi.builddriver.BuildDriverStatus;
@@ -20,12 +25,14 @@ public class LocalBuildJob {
     private String buildScriptContents;
     private String revision;
     private String buildLog = "";
+    private Environment environment;
 
     public LocalBuildJob(BuildConfiguration configuration, String outputDir) {
         this.scmUrl = configuration.getScmRepoURL();
         this.revision = configuration.getScmRevision();
         this.outputDir = outputDir + File.separator + configuration.getName();
         this.buildScriptContents = configuration.getBuildScript();
+        this.environment = configuration.getEnvironment();
     }
 
     public void build(Consumer<BuildDriverStatus> onMonitorComplete,
@@ -36,8 +43,8 @@ public class LocalBuildJob {
             ScmRetriever scmRetriever = new ScmRetriever(SCMRepositoryType.GIT);
             scmRetriever.cloneRepository(scmUrl, revision, outputDir);
 
-            ScriptGenerator bashScriptGenerator = new BashScriptGenerator();
-            File buildScriptFile = bashScriptGenerator.generateExecutableScript(outputDir + File.separator + buildScriptName, buildScriptContents);
+            ScriptGenerator scriptGenerator = ScriptGeneratorFactory.createScriptGenerator(environment.getOperationalSystem());
+            File buildScriptFile = scriptGenerator.generateExecutableScript(outputDir + File.separator + buildScriptName, buildScriptContents);
 
             File mvnlog = new File(outputDir + File.separator + buildLogName);
             mvnlog.createNewFile();
@@ -46,12 +53,14 @@ public class LocalBuildJob {
             executor.executeScript();
             buildLog = executor.getOutput();
 
-            int result = executor.getResult();
+            onMonitorComplete.accept(executor.getResult() == 0 ? BuildDriverStatus.SUCCESS : BuildDriverStatus.FAILED);
 
-            onMonitorComplete.accept(result == 0 ? BuildDriverStatus.SUCCESS : BuildDriverStatus.FAILED);
-        } catch (Exception e) {
-            if (executor != null)
-                buildLog = executor.getOutput();
+        } catch (LocalBuildProcessException e) {
+            buildLog = executor.getOutput();
+            e.printStackTrace();
+            onMonitorError.accept(e);
+        } catch (ScmException|IOException|OSNotSupportedException e) {
+            e.printStackTrace();
             onMonitorError.accept(e);
         }
     }

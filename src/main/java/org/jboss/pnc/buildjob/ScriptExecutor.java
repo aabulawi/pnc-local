@@ -1,13 +1,13 @@
 package org.jboss.pnc.buildjob;
 
-import java.io.IOException;
+import org.jboss.pnc.exception.LocalBuildProcessException;
 
 /**
  * Created by aabulawi on 09/07/15.
  */
 public interface ScriptExecutor {
 
-    public void executeScript() throws InterruptedException, IOException;
+    public void executeScript() throws LocalBuildProcessException;
 
     public int getResult();
 

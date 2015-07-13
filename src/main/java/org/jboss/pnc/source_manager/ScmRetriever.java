@@ -1,5 +1,6 @@
 package org.jboss.pnc.source_manager;
 
+import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFileSet;
 import org.apache.maven.scm.ScmTag;
 import org.apache.maven.scm.command.checkout.CheckOutScmResult;
@@ -24,7 +25,7 @@ public class ScmRetriever {
         setProvider(repositoryType);
     }
 
-    public CheckOutScmResult cloneRepository(String scmUrl, String revision, String cloneTo) throws Exception {
+    public CheckOutScmResult cloneRepository(String scmUrl, String revision, String cloneTo) throws ScmException {
 
         File buildDir = new File(cloneTo);
         if (!buildDir.exists())
@@ -41,18 +42,18 @@ public class ScmRetriever {
         }
     }
 
-    private ScmRepository getScmRepository( String scmUrl, ScmManager scmManager ) throws Exception {
+    private ScmRepository getScmRepository( String scmUrl, ScmManager scmManager ) throws ScmException {
         try
         {
             return scmManager.makeScmRepository( scmUrl );
         }
         catch ( NoSuchScmProviderException ex )
         {
-            throw new Exception( "Could not find a provider.", ex );
+            throw new ScmException( "Could not find a provider.", ex );
         }
         catch ( ScmRepositoryException ex )
         {
-            throw new Exception( "Error while connecting to the repository", ex );
+            throw new ScmException( "Error while connecting to the repository", ex );
         }
     }
 }
