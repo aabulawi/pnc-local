@@ -8,6 +8,7 @@ import org.jboss.pnc.spi.environment.exception.EnvironmentDriverException;
 import org.jboss.pnc.spi.repositorymanager.model.RepositorySession;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.nio.file.Path;
 import java.util.function.Consumer;
 
 @ApplicationScoped
@@ -32,6 +33,11 @@ public class LocalEnvironmentDriver implements EnvironmentDriver {
                             @Override
                             public RepositorySession getRepositorySession() {
                                 return repositoryConfiguration;
+                            }
+
+                            @Override
+                            public Path getWorkingDirectory() {
+                                return null;
                             }
 
                             @Override
