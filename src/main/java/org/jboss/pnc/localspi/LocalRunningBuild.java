@@ -22,7 +22,7 @@ public class LocalRunningBuild implements RunningBuild {
     }
 
     @Override
-    public void monitor(Consumer<CompletedBuild> onComplete, Consumer<Exception> onError) {
+    public void monitor(Consumer<CompletedBuild> onComplete, Consumer<Throwable> onError) {
         Consumer<BuildDriverStatus> onBuildComplete = (buildDriverStatus) -> {
             onComplete.accept(new LocalCompletedBuild(localBuildJob.getBuildLog(), buildDriverStatus, runningEnvironment));
         };
@@ -31,8 +31,6 @@ public class LocalRunningBuild implements RunningBuild {
         };
 
         localBuildJob.build(onBuildComplete, onBuildError);
-
-
     }
 
     @Override

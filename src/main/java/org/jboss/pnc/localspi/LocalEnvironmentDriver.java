@@ -9,14 +9,14 @@ import org.jboss.pnc.spi.repositorymanager.model.RepositorySession;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.function.Consumer;
 
 @ApplicationScoped
 public class LocalEnvironmentDriver implements EnvironmentDriver {
 
     @Override
-    public StartedEnvironment buildEnvironment(Environment buildEnvironment,
-                                               final RepositorySession repositoryConfiguration) throws EnvironmentDriverException {
+    public StartedEnvironment buildEnvironment(Environment buildEnvironment, final RepositorySession repositoryConfiguration) throws EnvironmentDriverException {
         return new StartedEnvironment() {
 
             @Override
@@ -35,9 +35,8 @@ public class LocalEnvironmentDriver implements EnvironmentDriver {
                                 return repositoryConfiguration;
                             }
 
-                            @Override
                             public Path getWorkingDirectory() {
-                                return null;
+                                return Paths.get(System.getProperty("user.dir"));
                             }
 
                             @Override

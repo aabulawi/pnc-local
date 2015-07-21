@@ -27,7 +27,6 @@ public class ScriptExecutorImpl implements ScriptExecutor {
         processBuilder.directory(executableFile.getParentFile());
         processBuilder.redirectErrorStream(true);
         Process process;
-        int result = 0;
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(logFile))) {
             process = processBuilder.start();
