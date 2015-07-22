@@ -1,6 +1,5 @@
-package org.jboss.pnc.localspi;
+package org.jboss.pnc.buildjob;
 
-import org.jboss.pnc.buildjob.LocalBuildJob;
 import org.jboss.pnc.spi.builddriver.BuildDriverStatus;
 import org.jboss.pnc.spi.builddriver.CompletedBuild;
 import org.jboss.pnc.spi.builddriver.RunningBuild;

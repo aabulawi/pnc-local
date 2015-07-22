@@ -1,7 +1,6 @@
-package org.jboss.pnc.localspi;
+package org.jboss.pnc.buildjob;
 
 
-import org.jboss.pnc.buildjob.LocalBuildJob;
 import org.jboss.pnc.model.BuildConfiguration;
 import org.jboss.pnc.model.BuildType;
 import org.jboss.pnc.spi.BuildExecution;

@@ -1,4 +1,4 @@
-package org.jboss.pnc.localspi;
+package org.jboss.pnc.buildjob;
 
 import org.jboss.pnc.spi.builddriver.BuildDriverResult;
 import org.jboss.pnc.spi.builddriver.BuildDriverStatus;

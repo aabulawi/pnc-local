@@ -1,4 +1,4 @@
-package org.jboss.pnc.localspi;
+package org.jboss.pnc.datastore;
 
 
 import org.jboss.pnc.model.BuildRecord;

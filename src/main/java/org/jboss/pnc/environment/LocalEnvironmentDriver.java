@@ -1,4 +1,4 @@
-package org.jboss.pnc.localspi;
+package org.jboss.pnc.environment;
 
 import org.jboss.pnc.model.Environment;
 import org.jboss.pnc.spi.environment.EnvironmentDriver;
