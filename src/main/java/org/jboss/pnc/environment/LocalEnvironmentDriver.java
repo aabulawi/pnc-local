@@ -70,7 +70,7 @@ public class LocalEnvironmentDriver implements EnvironmentDriver {
 
     @Override
     public boolean canBuildEnvironment(Environment environment) {
-        return true;
+        return false;
     }
 
 }

@@ -1,8 +1,6 @@
 package org.jboss.pnc;
 
-import org.jboss.pnc.model.BuildConfiguration;
-import org.jboss.pnc.model.Environment;
-import org.jboss.pnc.model.JSONBuildConfiguration;
+import org.jboss.pnc.model.*;
 import org.jboss.pnc.source_manager.SourceManagerUtils;
 
 import java.util.Set;
