@@ -12,6 +12,7 @@ import org.jboss.pnc.core.exception.CoreException;
 import org.jboss.pnc.exception.IncompleteConfigurationException;
 import org.jboss.pnc.model.*;
 import org.jboss.pnc.parser.PncLocalCliOptions;
+import org.jboss.pnc.spi.datastore.DatastoreException;
 import org.jboss.pnc.spi.events.BuildSetStatusChangedEvent;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
@@ -44,6 +45,8 @@ public class LocalBuildRunner {
             e.printStackTrace();
         } catch (IncompleteConfigurationException e) {
             System.err.println(e.getMessage());
+        } catch (DatastoreException e) {
+            e.printStackTrace();
         }
     }
 
