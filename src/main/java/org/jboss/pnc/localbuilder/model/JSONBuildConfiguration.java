@@ -46,16 +46,10 @@ public class JSONBuildConfiguration {
         this.dependencies = dependencies;
     }
 
-    public void validate() throws IncompleteConfigurationException {
-        String errormsg = "Build.json is missing the following parameter: %s";
-        if (name == null)
-            throw new IncompleteConfigurationException(String.format(errormsg, "name"));
-        if (scm == null)
-            throw new IncompleteConfigurationException(String.format(errormsg, "scm"));
-        if (command == null)
-            throw new IncompleteConfigurationException(String.format(errormsg, "command"));
-        if (dependencies == null)
-            throw new IncompleteConfigurationException(String.format(errormsg, "dependencies"));
+    public boolean isValid() {
+        if (name == null || scm == null || command == null || dependencies == null)
+            return false;
+        return true;
     }
 
 }

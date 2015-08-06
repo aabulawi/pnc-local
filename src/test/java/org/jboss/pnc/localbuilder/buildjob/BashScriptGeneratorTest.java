@@ -1,7 +1,6 @@
-package org.jboss.pnc.localbuilder.LocalBuild;
+package org.jboss.pnc.localbuilder.buildjob;
 
 import org.apache.commons.io.FileUtils;
-import org.jboss.pnc.localbuilder.buildjob.BashScriptGenerator;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
