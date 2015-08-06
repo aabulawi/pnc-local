@@ -5,13 +5,13 @@ Run PNC builds locally.
 mvn clean install
 
 #Usage
-To build you just need to pass an valid configuration file.
+To perform a build you just need to pass a valid configuration file.
 
 ```
 java -jar local-build.jar -f <path-to-configuration>
 ```
 
-Configurations should in the following form
+Configuration files be should in the following form
 ```
 [
 { "name" : <name>, "scm" : <scm with # appended>, "command" : <build command>, "dependencies" : <list of dependencies based on the name> },
@@ -22,4 +22,4 @@ Configurations should in the following form
 ]
 ```
  
-Example configurations can be found https://github.com/ahmedlawi92/pnc-local/tree/master/example-configurations.
+Example configurations can be found here, https://github.com/ahmedlawi92/pnc-local/tree/master/example-configurations.
