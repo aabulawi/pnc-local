@@ -1,0 +1,7 @@
+[
+
+  { "name" : "MyTestProject1", "scm" : "http://github.com/repo.git#97c3e1f137282ca8a69cb67cef8627da45797a94", "command" : "mvn clean install", "dependencies" : ["MyTestProject2", "MyTestProject3"]  },
+  { "name" : "MyTestProject2", "scm" : "http://github.com/repo.git#97c3e1f137282ca8a69cb67cef8627da45797a94", "command" : "mvn clean install", "dependencies" : ["MyTestProject3"]  },
+  { "name" : "MyTestProject3", "scm" : "http://github.com/repo.git#97c3e1f137282ca8a69cb67cef8627da45797a94", "command" : "mvn clean install", "dependencies" : []  }
+
+]

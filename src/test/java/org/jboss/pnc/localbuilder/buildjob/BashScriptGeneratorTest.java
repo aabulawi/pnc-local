@@ -1,6 +1,7 @@
 package org.jboss.pnc.localbuilder.buildjob;
 
 import org.apache.commons.io.FileUtils;
+import org.jboss.pnc.localbuilder.utils.TestUtils;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -15,8 +16,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class BashScriptGeneratorTest {
 
-    private String scriptsDir = System.getProperty("user.dir") + "/src/test/resources/test_scripts/";
-
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
@@ -25,7 +24,7 @@ public class BashScriptGeneratorTest {
         BashScriptGenerator bashScriptGenerator = new BashScriptGenerator();
         String pathToFile = temporaryFolder.getRoot().getAbsolutePath() + File.separator + "test.sh";
         File testFile = bashScriptGenerator.generateExecutableScript(pathToFile, "mvn clean install -DskipTests");
-        assertTrue(FileUtils.contentEquals(testFile, new File(scriptsDir +File.separator+"validBash.sh")));
+        assertTrue(FileUtils.contentEquals(testFile, new File(TestUtils.SCRIPTS_DIR +File.separator+"validBash.sh")));
     }
 
     @Test
@@ -35,7 +34,7 @@ public class BashScriptGeneratorTest {
         File existingFile = new File(pathToFile);
         existingFile.createNewFile();
         File testFile = bashScriptGenerator.generateExecutableScript(pathToFile, "mvn clean install -DskipTests");
-        assertTrue(FileUtils.contentEquals(testFile, new File(scriptsDir +File.separator+"validBash.sh")));
+        assertTrue(FileUtils.contentEquals(testFile, new File(TestUtils.SCRIPTS_DIR +File.separator+"validBash.sh")));
     }
 
     @Test

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by aabulawi on 07/07/15.
@@ -43,13 +44,12 @@ public class JSONBuildConfigurationTest {
         List<JSONBuildConfiguration> jsonConfig = mapper.readValue(json, new TypeReference<List<JSONBuildConfiguration>>() {});
     }
 
-    @Test(expected = IncompleteConfigurationException.class)
+    @Test
     public void createInvalidBuildConfiguration() throws Exception {
         File json = new File(configsDir+"missingNameBuild.json");
         ObjectMapper mapper = new ObjectMapper();
         List<JSONBuildConfiguration> jsonConfig = mapper.readValue(json, new TypeReference<List<JSONBuildConfiguration>>() {});
-        for (JSONBuildConfiguration c : jsonConfig)
-            c.validate();
+        assertTrue(jsonConfig.stream().anyMatch(config -> !config.isValid()));
     }
 
 }

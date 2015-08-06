@@ -1,6 +1,7 @@
 package org.jboss.pnc.localbuilder.buildjob;
 
 import org.apache.commons.io.FileUtils;
+import org.jboss.pnc.localbuilder.utils.TestUtils;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -17,14 +18,13 @@ public class ScriptExecutorImplTest {
 
     //TODO: Think of way to make this platform independent. Probably need to make batch script generator and use factory or something
 
-    private String scriptsDir = System.getProperty("user.dir") + "/src/test/resources/test_scripts/";
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     @Test
     public void runValidScript() throws Exception {
         File testlog = temporaryFolder.newFile();
-        File testExecutable = new File(scriptsDir+"helloWorld.sh");
+        File testExecutable = new File(TestUtils.SCRIPTS_DIR +"helloWorld.sh");
         testExecutable.setExecutable(true);
         ScriptExecutorImpl scriptExecutor = new ScriptExecutorImpl(testExecutable, testlog);
         scriptExecutor.executeScript();
@@ -33,7 +33,7 @@ public class ScriptExecutorImplTest {
     @Test
     public void verifyCorrectLogsForSuccess() throws Exception {
         File testlog = temporaryFolder.newFile();
-        File testExecutable = new File(scriptsDir+"helloWorld.sh");
+        File testExecutable = new File(TestUtils.SCRIPTS_DIR +"helloWorld.sh");
         testExecutable.setExecutable(true);
         ScriptExecutorImpl scriptExecutor = new ScriptExecutorImpl(testExecutable, testlog);
         scriptExecutor.executeScript();
@@ -43,7 +43,7 @@ public class ScriptExecutorImplTest {
     @Test
     public void verifyCorrectResultForSuccess() throws Exception {
         File testlog = temporaryFolder.newFile();
-        File testExecutable = new File(scriptsDir+"helloWorld.sh");
+        File testExecutable = new File(TestUtils.SCRIPTS_DIR +"helloWorld.sh");
         testExecutable.setExecutable(true);
         ScriptExecutorImpl scriptExecutor = new ScriptExecutorImpl(testExecutable, testlog);
         scriptExecutor.executeScript();
@@ -53,17 +53,17 @@ public class ScriptExecutorImplTest {
     @Test
     public void verifyCorrectLogFileForSuccess() throws Exception {
         File testlog = temporaryFolder.newFile();
-        File testExecutable = new File(scriptsDir+"helloWorld.sh");
+        File testExecutable = new File(TestUtils.SCRIPTS_DIR +"helloWorld.sh");
         testExecutable.setExecutable(true);
         ScriptExecutorImpl scriptExecutor = new ScriptExecutorImpl(testExecutable, testlog);
         scriptExecutor.executeScript();
-        assertTrue(FileUtils.contentEquals(testlog, new File(scriptsDir+"helloWorld.txt")));
+        assertTrue(FileUtils.contentEquals(testlog, new File(TestUtils.SCRIPTS_DIR +"helloWorld.txt")));
     }
 
     @Test
     public void runInvalidScript() throws Exception {
         File testlog = temporaryFolder.newFile();
-        File testExecutable = new File(scriptsDir+"errorScript.sh");
+        File testExecutable = new File(TestUtils.SCRIPTS_DIR +"errorScript.sh");
         testExecutable.setExecutable(true);
         ScriptExecutorImpl scriptExecutor = new ScriptExecutorImpl(testExecutable, testlog);
         scriptExecutor.executeScript();
@@ -72,7 +72,7 @@ public class ScriptExecutorImplTest {
     @Test
     public void verifyCorrectLogFileForInvalid() throws Exception {
         File testlog = temporaryFolder.newFile();
-        File testExecutable = new File(scriptsDir+"errorScript.sh");
+        File testExecutable = new File(TestUtils.SCRIPTS_DIR +"errorScript.sh");
         testExecutable.setExecutable(true);
         ScriptExecutorImpl scriptExecutor = new ScriptExecutorImpl(testExecutable, testlog);
         scriptExecutor.executeScript();
@@ -82,7 +82,7 @@ public class ScriptExecutorImplTest {
     @Test
     public void verifyCorrectResultForInvalid() throws Exception {
         File testlog = temporaryFolder.newFile();
-        File testExecutable = new File(scriptsDir+"errorScript.sh");
+        File testExecutable = new File(TestUtils.SCRIPTS_DIR +"errorScript.sh");
         testExecutable.setExecutable(true);
         ScriptExecutorImpl scriptExecutor = new ScriptExecutorImpl(testExecutable, testlog);
         scriptExecutor.executeScript();
