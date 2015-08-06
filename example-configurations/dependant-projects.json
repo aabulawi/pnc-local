@@ -1,0 +1,7 @@
+[
+    { "name" : "termd", "scm" : "https://github.com/matejonnet/termd#bbfec44c17e0b010e4ca16b5b3f6f1dfc33e006a", "command" : "mvn clean install", "dependencies" : []   }
+      ,
+    { "name" : "build-agent", "scm" : "https://github.com/project-ncl/pnc-build-agent#d125717b0401e11f5043fd3437ffe68f203345e2", "command" : "mvn clean install", "dependencies" : ["termd"]   }
+
+
+]
