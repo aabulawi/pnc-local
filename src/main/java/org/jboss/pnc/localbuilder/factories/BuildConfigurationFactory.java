@@ -5,8 +5,6 @@ import org.jboss.pnc.localbuilder.sourcemanager.SourceManagerUtils;
 import org.jboss.pnc.model.BuildConfiguration;
 import org.jboss.pnc.model.Environment;
 
-import java.util.Set;
-
 /**
  * Created by aabulawi on 08/07/15.
  */

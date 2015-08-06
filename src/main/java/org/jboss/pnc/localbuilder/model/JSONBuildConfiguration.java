@@ -1,7 +1,5 @@
 package org.jboss.pnc.localbuilder.model;
 
-import org.jboss.pnc.localbuilder.exception.IncompleteConfigurationException;
-
 import java.util.List;
 
 /**

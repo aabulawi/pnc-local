@@ -3,7 +3,6 @@ package org.jboss.pnc.localbuilder.factories;
 import org.jboss.pnc.localbuilder.model.JSONBuildConfiguration;
 import org.jboss.pnc.localbuilder.utils.TestUtils;
 import org.jboss.pnc.model.BuildConfiguration;
-import org.jboss.pnc.model.BuildConfigurationSet;
 import org.junit.Test;
 
 import java.io.IOException;

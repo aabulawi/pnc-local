@@ -1,18 +1,13 @@
 package org.jboss.pnc.localbuilder.factories;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jboss.pnc.localbuilder.model.JSONBuildConfiguration;
 import org.jboss.pnc.localbuilder.utils.TestUtils;
 import org.jboss.pnc.model.BuildConfiguration;
 import org.jboss.pnc.model.BuildConfigurationSet;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
