@@ -58,7 +58,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>org.jboss.pnc.LocalBuildRunner</mainClass>
+                            <mainClass>org.jboss.pnc.localbuilder.LocalBuildRunner</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
