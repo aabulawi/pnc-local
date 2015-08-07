@@ -58,7 +58,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>org.jboss.pnc.localbuilder.LocalBuildRunner</mainClass>
+                            <mainClass>org.jboss.weld.environment.se.StartMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -88,6 +88,16 @@
         <dependency>
             <groupId>org.jboss.pnc</groupId>
             <artifactId>build-coordinator</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.pnc</groupId>
+            <artifactId>model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.pnc</groupId>
+            <artifactId>common</artifactId>
             <version>${project.version}</version>
         </dependency>
 

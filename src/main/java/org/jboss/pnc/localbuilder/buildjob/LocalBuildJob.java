@@ -3,12 +3,14 @@ package org.jboss.pnc.localbuilder.buildjob;
 import org.apache.maven.scm.ScmException;
 import org.jboss.pnc.localbuilder.exception.LocalBuildProcessException;
 import org.jboss.pnc.localbuilder.exception.OSNotSupportedException;
+import org.jboss.pnc.localbuilder.parser.PncLocalCliOptions;
 import org.jboss.pnc.model.BuildConfiguration;
 import org.jboss.pnc.model.Environment;
 import org.jboss.pnc.localbuilder.sourcemanager.SCMRepositoryType;
 import org.jboss.pnc.localbuilder.sourcemanager.ScmRetriever;
 import org.jboss.pnc.spi.builddriver.BuildDriverStatus;
 
+import javax.inject.Inject;
 import java.io.*;
 import java.util.function.Consumer;
 
