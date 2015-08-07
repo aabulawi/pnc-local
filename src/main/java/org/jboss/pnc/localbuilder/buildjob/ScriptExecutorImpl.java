@@ -41,7 +41,6 @@ public class ScriptExecutorImpl implements ScriptExecutor {
                         while ((line = reader.readLine()) != null) {
                             bw.write(line + "\n");
                             updateOutput(line);
-                            System.out.println(line);
                         }
                         bw.flush();
                     } catch (IOException e) {
