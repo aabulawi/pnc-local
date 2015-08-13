@@ -3,6 +3,7 @@ package org.jboss.pnc.localbuilder.datastore;
 
 import org.jboss.pnc.model.BuildConfigSetRecord;
 import org.jboss.pnc.model.BuildRecord;
+import org.jboss.pnc.model.ProductMilestone;
 import org.jboss.pnc.model.User;
 import org.jboss.pnc.spi.datastore.Datastore;
 
@@ -47,5 +48,11 @@ public class LocalDatastore implements Datastore {
     public BuildConfigSetRecord saveBuildConfigSetRecord(BuildConfigSetRecord buildConfigSetRecord) {
         buildConfigSetRecords.add(buildConfigSetRecord);
         return buildConfigSetRecord;
+    }
+
+    @Override
+    // TODO: to implement
+    public BuildRecord storeBuildRecord(BuildRecord buildRecord, List<ProductMilestone> milestones) {
+        return null;
     }
 }
