@@ -5,6 +5,7 @@ import org.jboss.pnc.localbuilder.exception.LocalBuildProcessException;
 import org.jboss.pnc.localbuilder.exception.OSNotSupportedException;
 import org.jboss.pnc.localbuilder.parser.PncLocalCliOptions;
 import org.jboss.pnc.model.BuildConfiguration;
+import org.jboss.pnc.model.BuildConfigurationAudited;
 import org.jboss.pnc.model.Environment;
 import org.jboss.pnc.localbuilder.sourcemanager.SCMRepositoryType;
 import org.jboss.pnc.localbuilder.sourcemanager.ScmRetriever;
@@ -28,7 +29,7 @@ public class LocalBuildJob {
     private String buildLog = "";
     private Environment environment;
 
-    public LocalBuildJob(BuildConfiguration configuration, String outputDir) {
+    public LocalBuildJob(BuildConfigurationAudited configuration, String outputDir) {
         this.scmUrl = configuration.getScmRepoURL();
         this.revision = configuration.getScmRevision();
         this.outputDir = outputDir + File.separator + configuration.getName();

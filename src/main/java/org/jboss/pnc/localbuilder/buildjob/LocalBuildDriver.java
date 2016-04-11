@@ -3,6 +3,7 @@ package org.jboss.pnc.localbuilder.buildjob;
 
 import org.jboss.pnc.localbuilder.parser.PncLocalCliOptions;
 import org.jboss.pnc.model.BuildConfiguration;
+import org.jboss.pnc.model.BuildConfigurationAudited;
 import org.jboss.pnc.model.BuildType;
 import org.jboss.pnc.spi.BuildExecution;
 import org.jboss.pnc.spi.builddriver.*;
@@ -30,9 +31,8 @@ public class LocalBuildDriver implements BuildDriver {
     }
 
     @Override
-    public RunningBuild startProjectBuild(BuildExecution buildExecution, BuildConfiguration buildConfiguration, RunningEnvironment runningEnvironment) throws BuildDriverException {
-        LocalBuildJob localBuildJob = new LocalBuildJob(buildConfiguration, "workspace");
+    public RunningBuild startProjectBuild(BuildExecution buildExecution, BuildConfigurationAudited buildConfigurationAudited, RunningEnvironment runningEnvironment) throws BuildDriverException {
+        LocalBuildJob localBuildJob = new LocalBuildJob(buildConfigurationAudited, "workspace");
         return new LocalRunningBuild(runningEnvironment, localBuildJob);
     }
-
 }

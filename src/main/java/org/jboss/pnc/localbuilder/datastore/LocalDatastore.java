@@ -1,15 +1,14 @@
 package org.jboss.pnc.localbuilder.datastore;
 
 
-import org.jboss.pnc.model.BuildConfigSetRecord;
-import org.jboss.pnc.model.BuildRecord;
-import org.jboss.pnc.model.ProductMilestone;
-import org.jboss.pnc.model.User;
+import org.jboss.pnc.model.*;
 import org.jboss.pnc.spi.datastore.Datastore;
+import org.jboss.pnc.spi.datastore.DatastoreException;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -23,7 +22,7 @@ public class LocalDatastore implements Datastore {
     AtomicInteger buildRecordSequence = new AtomicInteger(0);
 
     @Override
-    public BuildRecord storeCompletedBuild(BuildRecord buildRecord) {
+    public BuildRecord storeCompletedBuild(BuildRecord buildRecord, Set<Integer> set) throws DatastoreException {
         buildRecords.add(buildRecord);
         return buildRecord;
     }
@@ -51,8 +50,7 @@ public class LocalDatastore implements Datastore {
     }
 
     @Override
-    // TODO: to implement
-    public BuildRecord storeBuildRecord(BuildRecord buildRecord, List<ProductMilestone> milestones) {
+    public BuildConfigurationAudited getLatestBuildConfigurationAudited(Integer integer) {
         return null;
     }
 }

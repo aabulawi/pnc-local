@@ -9,6 +9,15 @@
     <groupId>org.jboss.pnc</groupId>
     <artifactId>local-build</artifactId>
     <version>0.6-SNAPSHOT</version>
+
+    <repositories>
+        <repository>
+	    <id>JBoss</id>
+	    <name>JBoss Repo</name>
+	    <url>https://repository.jboss.org/</url>
+	</repository>
+    </repositories>
+
     <build>
         <plugins>
             <plugin>
@@ -84,6 +93,7 @@
             <groupId>org.jboss.pnc</groupId>
             <artifactId>spi</artifactId>
             <version>${project.version}</version>
+	    
         </dependency>
         <dependency>
             <groupId>org.jboss.pnc</groupId>
